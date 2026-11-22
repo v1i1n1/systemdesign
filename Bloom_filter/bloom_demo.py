@@ -7,7 +7,7 @@ bit_array = [0] * 8
 # Hash function
 def hash_function(word):
     hash_values = {
-        "apple": 1,
+        "apple": 3,
         "ball": 6,
         "cat": 2,
         "dog": 5,
