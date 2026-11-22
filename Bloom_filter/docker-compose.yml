@@ -1,0 +1,14 @@
+
+services:
+  redis:
+    image: redis/redis-stack-server:latest
+    container_name: redis-bloom
+    ports:
+      - "6380:6379"
+    command: redis-stack-server --appendonly yes
+    volumes:
+      - redis_bloom_data:/data
+    restart: unless-stopped
+
+volumes:
+  redis_bloom_data:

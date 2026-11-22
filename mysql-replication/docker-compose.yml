@@ -1,0 +1,38 @@
+
+services:
+  mysql-primary:
+    image: mysql:8.4
+    container_name: mysql-primary
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3306:3306"
+    command:
+      - --server-id=1
+      - --log-bin=mysql-bin
+      - --binlog-format=ROW
+      - --gtid-mode=ON
+      - --enforce-gtid-consistency=ON
+    volumes:
+      - primary_data:/var/lib/mysql
+
+  mysql-replica:
+    image: mysql:8.4
+    container_name: mysql-replica
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+    ports:
+      - "3307:3306"
+    command:
+      - --server-id=2
+      - --relay-log=relay-bin
+      - --read-only=ON
+      - --gtid-mode=ON
+      - --enforce-gtid-consistency=ON
+      - --log-replica-updates=ON
+    volumes:
+      - replica_data:/var/lib/mysql
+
+volumes:
+  primary_data:
+  replica_data:
